@@ -1,0 +1,55 @@
+@import "./../../../styles/";
+.container{
+    position: relative;
+    &_main_logo{
+        padding: 2rem 0rem 0rem 2rem;
+    }
+    &_routing{
+        margin-top: 7rem;
+        ul{
+            list-style-type: none;
+            cursor: pointer;
+            li{
+                margin-bottom: 3rem;
+                .icon{
+                    padding-right: 1.3rem;
+                    padding-left: 1rem;
+                    width:5rem;
+                    height: 5rem;
+                }
+                .text{
+                    font-family: 'DM Sans';
+                    font-style: normal;
+                    font-weight: 300;
+                    font-size: 1.3rem;
+                    color: #858585;
+                    padding-top: -5rem;
+                }
+            }
+        }
+    }
+    &_bottom{
+        cursor: pointer;
+        position: fixed;
+        margin: 0rem 0rem 2.5rem 1.5rem;
+        left:0;
+        bottom:0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        .name{
+            font-family: 'DM Sans';
+            color: $primary;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        .scale{
+            color:#8A8A8A;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+    }
+}

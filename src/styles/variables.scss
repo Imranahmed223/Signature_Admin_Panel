@@ -1,0 +1,25 @@
+// Colors
+$primary: #2B4465;
+$primary-color: #2B4465;
+$secondary-color: #61defd;
+$tertiary-color: #858585;
+$bg-color: #d5f3fa;
+$white-color: #ffffff;
+
+// Font sizes
+$font-b: 1.6rem;
+$font-lg: 2rem;
+$font-sm: 1.2rem;
+
+// Spacing
+$spacing-unit: 0.4rem;
+$padding: $spacing-unit * 3 $spacing-unit * 6;
+
+// transition
+$transition-duration: 0.25s;
+
+// Breakpoints
+$mobile-breakpoint: 580px;
+$tablet-breakpoint: 800px;
+$desktop-breakpoint: 990px;
+$l-desktop-breakpoint: 1200px;

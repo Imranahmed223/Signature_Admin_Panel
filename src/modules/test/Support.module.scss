@@ -1,0 +1,202 @@
+@import "../../styles";
+
+.container {
+  padding: $spacing-unit * 10 $spacing-unit * 13;
+  & > .title {
+    @include flex(row, center, space-between, 1.6rem);
+    & > .left {
+      & > h1 {
+        color: $primary-color;
+        font-weight: 600;
+        font-size: $font-lg * 1.2;
+      }
+    }
+    & > .right {
+      & > select {
+        border: none;
+        background-color: $white-color;
+        cursor: pointer;
+        outline: none;
+        padding: $spacing-unit * 2 $spacing-unit * 2 $spacing-unit * 2
+          $spacing-unit * 5;
+        border-radius: 0.5rem;
+        font-size: $font-b;
+      }
+    }
+  }
+  & > .middle {
+    margin-top: $spacing-unit * 12;
+    @include flex(row, flex-start, space-between, 20rem);
+    @include l-desktop {
+      @include flex(column, stretch, flex-start, 1.6rem);
+    }
+    & > .overflow {
+      flex: 1;
+      overflow-x: auto;
+      @include l-desktop {
+        order: 2;
+      }
+      & > table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0rem;
+        & > thead {
+          & > tr {
+            & > th {
+              text-align: left;
+              font-size: $font-sm + 0.1;
+              color: $primary-color;
+              font-weight: 600;
+              white-space: nowrap;
+              padding: 0rem $spacing-unit * 3;
+
+              &:nth-child(1) {
+                width: 25%;
+              }
+              &:nth-child(2) {
+                width: 20%;
+              }
+              &:nth-child(3) {
+                width: 20%;
+              }
+              &:nth-child(4) {
+                width: 25%;
+              }
+              &:nth-child(5) {
+                width: 10%;
+              }
+            }
+          }
+        }
+        & > tbody {
+          & > tr {
+            & > td {
+              text-align: left;
+              font-size: $font-sm;
+              color: $tertiary-color;
+              font-weight: 500;
+              white-space: nowrap;
+              padding: 0rem $spacing-unit * 3;
+            }
+          }
+        }
+      }
+    }
+
+    & > .search {
+      flex-basis: 25rem;
+      position: relative;
+      @include l-desktop {
+        order: 1;
+        flex-basis: auto;
+      }
+      & > input {
+        width: 100%;
+        font-size: $font-sm;
+        outline: none;
+        border-radius: 1000rem;
+        border: 1px solid rgba($color: $primary-color, $alpha: 0);
+        padding: $spacing-unit * 2 $spacing-unit * 11 $spacing-unit * 2
+          $spacing-unit * 4;
+        color: $tertiary-color;
+        background-color: rgba($color: $tertiary-color, $alpha: 0.3);
+        &:focus {
+          border: 1px solid rgba($color: $primary-color, $alpha: 1);
+        }
+      }
+      & > .icon {
+        position: absolute;
+        right: $spacing-unit * 4;
+        top: 50%;
+        transform: translate(0rem, -42%);
+        font-size: $font-lg;
+        cursor: pointer;
+      }
+    }
+  }
+  & > .bottom {
+    margin-top: $spacing-unit * 11;
+    @include flex(row, flex-start, space-between, 20rem);
+    @include l-desktop {
+      @include flex(column, stretch, flex-start, 1.6rem);
+    }
+    & > .overflow {
+      flex: 1;
+      overflow-x: auto;
+
+      & > table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0rem;
+        & > thead {
+          & > tr {
+            & > th {
+              text-align: left;
+              font-size: $font-sm;
+              color: $primary-color;
+              font-weight: 600;
+              white-space: nowrap;
+              padding: 0rem $spacing-unit * 3;
+              padding-bottom: $spacing-unit * 3;
+
+              &:nth-child(1) {
+                width: 25%;
+              }
+              &:nth-child(2) {
+                width: 20%;
+              }
+              &:nth-child(3) {
+                width: 20%;
+              }
+              &:nth-child(4) {
+                width: 25%;
+              }
+              &:nth-child(5) {
+                width: 10%;
+              }
+            }
+          }
+        }
+        & > tbody {
+          & > tr {
+            & > td {
+              text-align: left;
+              font-size: $font-sm;
+              color: $primary-color;
+              font-weight: 500;
+              white-space: nowrap;
+              padding: $spacing-unit * 3 $spacing-unit * 3;
+              &:last-child {
+                text-align: right;
+                font-size: $font-b;
+              }
+              &:nth-child(2) {
+                color: $secondary-color;
+              }
+            }
+
+            &:not(:last-child) {
+              & > td {
+                border-bottom: 0.2rem solid
+                  rgba($color: $tertiary-color, $alpha: 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    & > .info {
+      flex-basis: 25rem;
+      text-align: center;
+      font-size: $font-sm;
+      color: $primary-color;
+      font-weight: 600;
+      @include l-desktop {
+        flex-basis: auto;
+        text-align: right;
+        padding: 0rem $spacing-unit * 3;
+      }
+    }
+  }
+}

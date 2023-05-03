@@ -1,0 +1,40 @@
+@import "./variables.scss";
+
+// media queries
+@mixin mobile {
+  @media screen and (max-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (max-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+@mixin l-desktop {
+  @media screen and (max-width: $l-desktop-breakpoint) {
+    @content;
+  }
+}
+
+// flex
+@mixin flex($dir: row, $item: center, $content: space-between, $gap: 0rem) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $item;
+  justify-content: $content;
+  gap: $gap;
+}
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

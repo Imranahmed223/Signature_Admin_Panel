@@ -1,0 +1,186 @@
+@import "./../../styles/";
+.header{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 4rem 0rem 4rem;
+    @include mobile {
+      padding: 4rem 2rem 0rem 2rem;
+    }
+    h1{
+        color:$primary;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 2rem;
+    }
+    select{
+        padding:0.5rem 1rem 0.5rem 1rem;
+        outline: none;
+        border: none;
+    }
+}
+
+.intro{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8rem 4rem 0rem 4rem;
+    @include tablet {
+      flex-direction: column;
+      padding: 4rem 4rem 0rem 4rem;
+    }
+    &_left_side{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include tablet {
+          display: none;
+        }
+        div{
+            padding-right: 8rem;
+            @include tablet {
+              padding-right: 6rem;
+            }
+            p{
+                color:$primary;
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1.3rem;
+                padding-bottom: 0.5rem;
+
+            }
+            span{
+                color: #8A8A8A;
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1.3rem;
+            }
+        }
+    }
+    &_right_side{
+      // @include mobile {
+      //   margin-top: 2rem;
+      //   padding:1rem 4rem 1rem 2rem;
+      //   margin-right: 10rem;
+      //   width:70%;
+      //   display: flex;
+      //   justify-content: space-between;
+      //   align-items: center;
+      // }
+    @include tablet {
+        padding:1rem 4rem 1rem 2rem;
+      }
+        input{
+            outline: none;
+            border: none;
+            background-color: transparent;
+        }
+        input::placeholder{
+            color: #8A8A8A;
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        background: #D9D9D9;
+        border-radius: 1rem;
+        padding: 0.2rem 2rem 0.2rem 2rem;
+    }
+}
+.table {
+    margin-top: $spacing-unit * 11;
+    padding-left: 2.5rem;
+    @include flex(row, flex-start, space-between, 20rem);
+    @include l-desktop {
+      @include flex(column, stretch, flex-start, 1.6rem);
+    }
+    & > .overflow {
+      flex: 1;
+      overflow-x: auto;
+
+      & > table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0rem;
+        & > thead {
+          & > tr {
+            & > th {
+              text-align: left;
+              font-size: $font-sm;
+              color: $primary;
+              font-weight: 600;
+              font-family: 'Lato';
+              font-style: normal;
+              white-space: nowrap;
+              padding: 0rem $spacing-unit * 3;
+              padding-bottom: $spacing-unit * 3;
+
+              &:nth-child(1) {
+                width: 25%;
+              }
+              &:nth-child(2) {
+                width: 20%;
+              }
+              &:nth-child(3) {
+                width: 20%;
+              }
+              &:nth-child(4) {
+                width: 25%;
+              }
+              &:nth-child(5) {
+                width: 10%;
+              }
+            }
+          }
+        }
+        & > tbody {
+          & > tr {
+            & > td {
+              text-align: left;
+              font-size: $font-sm;
+              color: $primary;
+              font-weight: 500;
+              font-family: 'Lato';
+              font-style: normal;
+              white-space: nowrap;
+              padding: $spacing-unit * 3 $spacing-unit * 3;
+              &:last-child {
+                text-align: right;
+                font-size: $font-b;
+              }
+              &:nth-child(2) {
+                color: #6EC4CF;
+              }
+            }
+
+            &:not(:last-child) {
+              & > td {
+                border-bottom: 0.2rem solid
+                  rgba($color: $tertiary-color, $alpha: 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    & > .info {
+      flex-basis: 25rem;
+      text-align: center;
+      font-size: $font-sm;
+      color: $primary-color;
+      font-weight: 600;
+      @include l-desktop {
+        flex-basis: auto;
+        text-align: right;
+        padding: 0rem $spacing-unit * 20;
+      }
+    }
+  }

@@ -1,0 +1,57 @@
+@import "./scss/mixins";
+@import "./scss/variable";
+@import "./styles/";
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+html {
+  font-size: 62.5%;
+
+  @include respond(tab-port) {
+    font-size: 50%;
+  }
+  @include respond(tab-land) {
+    font-size: 52.25%;
+  }
+
+  @include respond(big-desktop) {
+    font-size: 60%;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba($color: $secondary-color, $alpha: 0.8);
+  border-radius: 1000rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba($color: $secondary-color, $alpha: 1);
+}
