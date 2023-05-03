@@ -1,5 +1,6 @@
 @import "./../../scss/variable";
 @import "./../../scss/mixins";
+@import "./../../styles/";
 
 .login_container{
     width: 100vw;
@@ -94,10 +95,14 @@
             justify-content: space-between;
             align-items: center;
             margin :3rem 0rem 0rem 6rem;
-            @include respond(tab-port) {
+            @include respond(laptop) {
               margin :3rem 0rem 0rem 4rem;
               }
-            @include respond(tab-port) {
+              @include desktop {
+                margin :3rem 0rem 0rem 4rem;
+                width:30rem;
+              }
+            @include respond(laptop) {
               width:30rem;
               }
             p{
@@ -105,7 +110,11 @@
                 font-style: normal;
                 font-weight: 500;
                 font-size: 1.5rem;
-                @include respond(tab-port) {
+                @include desktop {
+                  font-size: 1.3rem;
+                  font-weight: 600;
+                }
+                @include respond(laptop) {
                   font-size: 1.3rem;
                   font-weight: 600;
                   }
