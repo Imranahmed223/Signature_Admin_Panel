@@ -1,4 +1,5 @@
 @import './../../styles/';
+@import "./../../scss/mixins";
 .container{
     width: 100%;
     height: auto;
@@ -82,6 +83,11 @@
     height:49.5rem;
     overflow-x: auto;
     overflow-y: auto;
+    @include respond(big-desktop) {
+      height: auto;
+      overflow-x: none;
+      overflow-y: none;
+      }
     margin-top: 4rem;
     background-color: white;
     padding: 4rem;
