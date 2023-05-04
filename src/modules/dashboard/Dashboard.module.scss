@@ -3,12 +3,15 @@
     width: 100%;
     height: auto;
     padding: 4rem 4rem 0rem 4rem;
+    @include mobile{
+      padding: 4rem 2rem 0rem 2rem;
+    }
     &_header{
       display: flex;
       justify-content: space-between;
       align-items: center;
       @include mobile {
-        padding: 4rem 2rem 0rem 2rem;
+        padding: 0rem 2rem 0rem 2rem;
       }
       h1{
           color:$primary;
