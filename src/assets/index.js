@@ -19,6 +19,8 @@ import graphMenu from "../assets/graphMenu.svg";
 import darkBlueImage from "../assets/darkBlueImage.svg";
 import grayImage from "../assets/grayImage.svg";
 import blueImage from "../assets/blueImage.svg";
+import checkBox from "../assets/checkBox.svg";
+import employSearch from "../assets/employSearch.svg";
 
 export {
   line,
@@ -42,4 +44,6 @@ export {
   darkBlueImage,
   grayImage,
   blueImage,
+  checkBox,
+  employSearch,
 };

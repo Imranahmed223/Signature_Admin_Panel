@@ -21,7 +21,7 @@ const Login = () => {
                 <label>Password</label>
                 <p>Forgot password?</p>
               </div>
-              <input placeholder="*********" />
+              <input type="password" placeholder="*********" />
               <button onClick={() => navigate("/dashboard")}>Login</button>
             </form>
           </div>

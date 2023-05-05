@@ -1,0 +1,241 @@
+@import './../../styles/';
+@import "./../../scss/mixins";
+.container{
+    width: 100%;
+    height: auto;
+    padding: 4rem 4rem 0rem 4rem;
+    @include mobile{
+      padding: 4rem 2rem 0rem 2rem;
+    }
+    &_header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include mobile {
+        padding: 0rem 2rem 0rem 2rem;
+      }
+      h1{
+          color:$primary;
+          font-family: 'DM Sans';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 2rem;
+      }
+      select{
+          padding:0.5rem 1rem 0.5rem 1rem;
+          outline: none;
+          border: none;
+      }
+  }
+  &_intro{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem 0rem 0rem;
+    @include tablet {
+      flex-direction: column;
+      padding: 2rem 4rem 0rem 0rem;
+    }
+    &_left_side{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include tablet {
+          display: none;
+        }
+        div{
+            padding-right: 8rem;
+            @include tablet {
+              padding-right: 6rem;
+            }
+            p{
+                color:$primary;
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1.3rem;
+                padding-bottom: 0.5rem;
+
+            }
+            span{
+                color: #8A8A8A;
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1.3rem;
+            }
+        }
+    }
+    &_right_side{
+      &_btn1{
+        color: #FFFFFF;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1rem;
+        background-color: #00356C;
+        padding:0.8rem;
+        outline:none;
+        border: none;
+        border-radius: 0.5rem;
+        margin-right: 1rem;
+        cursor: pointer;
+      }
+      &_btn2{
+        color: #FFFFFF;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1rem;
+        background-color: #00356C;
+        padding:0.8rem;
+        outline:none;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+      }
+    }
+}
+&_grid{
+  padding-top: 2rem;
+  &_right_side{
+    width:25rem;
+    background-color: #E7E7E7;
+    padding:2rem;
+    border-radius: 0.5rem;
+    @include respond(tab-port) {
+      width:30rem;
+    }
+    &_heading{
+      color:$primary;
+      font-family: 'DM Sans';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    &_options{
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &_p{
+        color:$primary;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1rem;
+      }
+      div{
+        width:50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #858585;
+        border-radius: 0.5rem;
+        padding:0.5rem;
+        margin-right: 0.5rem;
+        p{
+          margin-left: 0.5rem;
+        }
+      }
+    }
+    &_search_box{
+      margin-top: 0.5rem;
+      width:100%;
+      border: 1px solid #858585;
+      border-radius: 0.5rem;
+      padding:0.5rem;
+      input{
+        outline:none;
+        border: none;
+        background-color: transparent;
+        ::-webkit-input-placeholder {
+          font-family: 'DM Sans';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 1rem;
+          color:$primary;
+        }
+      }
+    }
+    &_info{
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      border-bottom: 1px solid #A8A8A8;
+      padding-bottom: 0.5rem;
+      p{
+        margin-right: 0.5rem;
+        color: #6ABBC6;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+    }
+    &_table{
+      margin-top: 1rem;
+      td{
+        border-bottom: 1px solid #A8A8A8;
+      }
+    }
+    &_btns{
+        margin-top: 2rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1rem;
+        &_btn1{
+          padding:0.5rem 1rem;
+          border: 1px solid #AFAFAF;
+          border-radius: 0.5rem;
+        }
+        &_btn2{
+          padding:0.5rem 1rem;
+          border: 1px solid #AFAFAF;
+          border-radius: 0.5rem;
+          margin-right: 0.5rem;
+          background-color: #00356C;
+          color:white;
+          outline:none;
+          border:none;
+          margin-left: 0.5rem;
+        }
+    }
+  }
+}
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+th{
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color:$primary;
+}
+td{
+  color:$primary;
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 0.8rem;
+}
+th, td {
+  padding: 8px;
+  text-align: left;
+  color: #2B4465;
+}
+.table_active{
+  color:#6EC4CF;
+}
