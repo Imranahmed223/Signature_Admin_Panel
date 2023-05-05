@@ -20,6 +20,13 @@
         }
       }
       }
+      @include respond(big-desktop) {
+        center{
+          h1{
+            display: none;
+          }
+        }
+        }
       @include respond(tab-land) {
         center{
           h1{
@@ -115,6 +122,9 @@
             justify-content: space-between;
             align-items: center;
             margin :3rem 0rem 0rem 6rem;
+            @include respond(big-desktop) {
+              display: none;
+            }
             @include respond(laptop) {
               margin :3rem 0rem 0rem 4rem;
               }
@@ -148,6 +158,9 @@
             align-items: center;
             margin: 3rem 0rem 0rem 5rem;
             border-radius: 0.5rem;
+            @include respond(big-desktop) {
+              display: none;
+            }
               @include respond(tab-port) {
                 width:30rem;
                 margin: 3rem 0rem 0rem 4rem;
