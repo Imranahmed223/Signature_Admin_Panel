@@ -49,9 +49,7 @@ const Subscription = () => {
             </tbody>
           </table>
         </div>
-        <div className={styles.info}>
-          <span>1 to 18 of 18</span>
-        </div>
+        <div className={styles.info}>{/* <span>1 to 18 of 18</span> */}</div>
       </div>
     </>
   );
