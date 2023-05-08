@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./Settings.module.scss";
 import { checkBox } from "./../../assets";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.parent}>
@@ -25,7 +27,11 @@ const Settings = () => {
               </div>
               <input type="password" placeholder="*********" />
               <button>Reset Password</button>
-              <div className={styles.child_form_question}>
+              <div
+                className={styles.child_form_question}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/changePassword")}
+              >
                 <p>Two factor authentication</p>
                 {/* <input type="checkbox" checked /> */}
                 <img src={checkBox} alt="checkBox" />

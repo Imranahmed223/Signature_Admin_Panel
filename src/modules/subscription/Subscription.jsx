@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./Subscription.module.scss";
 import { deleteIcon, search } from "./../../assets";
+import { useNavigate } from "react-router-dom";
 
 const Subscription = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles.header}>
@@ -21,7 +23,10 @@ const Subscription = () => {
         </div>
       </div>
       <div className={styles.table}>
-        <div className={styles.overflow}>
+        <div
+          className={styles.overflow}
+          onClick={() => navigate("/subscriptionUpdate")}
+        >
           <table>
             <thead>
               <tr>

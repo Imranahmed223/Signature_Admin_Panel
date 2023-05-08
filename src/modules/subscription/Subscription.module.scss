@@ -27,6 +27,7 @@
 .table {
     margin-top: $spacing-unit * 11;
     padding-left: 2.5rem;
+    cursor: pointer;
     @include flex(row, flex-start, space-between, 20rem);
     @include l-desktop {
       @include flex(column, stretch, flex-start, 1.6rem);

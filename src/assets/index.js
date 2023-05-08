@@ -21,6 +21,10 @@ import grayImage from "../assets/grayImage.svg";
 import blueImage from "../assets/blueImage.svg";
 import checkBox from "../assets/checkBox.svg";
 import employSearch from "../assets/employSearch.svg";
+import share from "../assets/share.svg";
+import billingCard from "../assets/billingCard.svg";
+import downArrow from "../assets/downArrow.svg";
+import horizontalLine from "../assets/horizontalLine.svg";
 
 export {
   line,
@@ -46,4 +50,8 @@ export {
   blueImage,
   checkBox,
   employSearch,
+  share,
+  billingCard,
+  downArrow,
+  horizontalLine,
 };

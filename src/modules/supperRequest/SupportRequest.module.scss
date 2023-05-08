@@ -1,4 +1,5 @@
 @import "./../../styles/";
+@import "./../../scss/mixins";
 .header{
     width: 100%;
     height: auto;
@@ -95,6 +96,7 @@
     }
 }
 .table {
+  cursor: pointer;
     margin-top: $spacing-unit * 11;
     padding-left: 2.5rem;
     @include flex(row, flex-start, space-between, 20rem);
@@ -184,3 +186,47 @@
       }
     }
   }
+.mobile_modal{
+    display: none;
+}
+.modal_box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  label{
+    margin: 1rem 1rem;
+    color: #00CBFE;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2;
+  }
+  input{
+    padding:0.8rem;
+    outline:none;
+    border: 1px solid #00CBFE;
+  }
+  textarea{
+    border: 1px solid #00CBFE;
+    outline:none
+  }
+  button{
+    margin-top: 2rem;
+    padding:1rem 8rem;
+    outline: none;
+    background-color: #00CBFE;
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+  }
+}
+@include respond(tab-port) {
+  .web_modal{
+      display: none;
+  }
+  .mobile_modal{
+      display: block;
+  }
+}

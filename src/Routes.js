@@ -7,6 +7,9 @@ import {
   Subscription,
   ManageEmployee,
   Settings,
+  InviteEmployee,
+  ChangePassword,
+  SubscriptionUpdate,
 } from "./modules";
 import { LayoutElement } from "./components/common";
 
@@ -21,6 +24,12 @@ const Routess = () => {
             <Route path="/supportRequest" element={<SupportRequest />} />
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/manageEmployee" element={<ManageEmployee />} />
+            <Route path="/inviteEmployee" element={<InviteEmployee />} />
+            <Route path="/changePassword" element={<ChangePassword />} />
+            <Route
+              path="/subscriptionUpdate"
+              element={<SubscriptionUpdate />}
+            />
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>

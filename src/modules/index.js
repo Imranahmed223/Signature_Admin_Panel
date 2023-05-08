@@ -1,6 +1,9 @@
 export { default as Login } from "./../modules/auth/Login";
 export { default as Dashboard } from "./../modules/dashboard/Dashboard";
 export { default as ManageEmployee } from "./../modules/manageEmployee/ManageEmployee";
+export { default as InviteEmployee } from "./../modules/inviteEmployee/InviteEmployee";
+export { default as ChangePassword } from "./../modules/changePassword/ChangePassword";
 export { default as Settings } from "./../modules/settings/Settings";
 export { default as Subscription } from "./../modules/subscription/Subscription";
 export { default as SupportRequest } from "./../modules/supperRequest/SupportRequest";
+export { default as SubscriptionUpdate } from "./../modules/subscriptionUpdate/SubscriptionUpdate";

@@ -1,15 +1,15 @@
 import React from "react";
-import styles from "./ManageEmployee.module.scss";
+import styles from "./InviteEmployee.module.scss";
 import { employSearch } from "./../../assets";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 
-const ManageEmployee = () => {
+const InviteEmployee = () => {
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.container_header}>
-        <h1>Manage employee</h1>
+        <h1>Invite Employee</h1>
         <select>
           <option>Mar 2023</option>
           <option>Mar 2024</option>
@@ -161,4 +161,4 @@ const ManageEmployee = () => {
   );
 };
 
-export default ManageEmployee;
+export default InviteEmployee;

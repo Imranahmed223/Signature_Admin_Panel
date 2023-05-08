@@ -1,10 +1,85 @@
 import React from "react";
 import styles from "./SupportRequest.module.scss";
 import { search, deleteIcon } from "./../../assets";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
+const style = {
+  position: "absolute",
+  top: "48%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 420,
+  height: 430,
+  bgcolor: "background.paper",
+  border: "1px solid #F5F5F5",
+  borderRadius: "4rem",
+  boxShadow: 24,
+  p: 4,
+};
+
+const style1 = {
+  position: "absolute",
+  top: "48%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 300,
+  height: 400,
+  bgcolor: "background.paper",
+  border: "1px solid #F5F5F5",
+  borderRadius: "4rem",
+  boxShadow: 24,
+  p: 4,
+};
 const SupportRequest = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className={styles.web_modal}
+      >
+        <Box sx={style}>
+          <div className={styles.modal_box}>
+            <label>Name</label>
+            <input type="text" placeholder="Anton Hall" />
+            <label>Email</label>
+            <input type="text" />
+            <label>
+              Explain the issue<span style={{ color: "red" }}>*</span>
+            </label>
+            <textarea rows="10" cols="30"></textarea>
+            <button onClick={() => handleClose()}>Submit</button>
+          </div>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className={styles.mobile_modal}
+      >
+        <Box sx={style1}>
+          <div className={styles.modal_box}>
+            <label>Name</label>
+            <input type="text" placeholder="Anton Hall" />
+            <label>Email</label>
+            <input type="text" />
+            <label>
+              Explain the issue<span style={{ color: "red" }}>*</span>
+            </label>
+            <textarea rows="10" cols="25"></textarea>
+            <button onClick={() => handleClose()}>Submit</button>
+          </div>
+        </Box>
+      </Modal>
       <div className={styles.header}>
         <h1>Support Requests</h1>
         <select>
@@ -37,7 +112,7 @@ const SupportRequest = () => {
           <img src={search} alt="search" />
         </div>
       </div>
-      <div className={styles.table}>
+      <div className={styles.table} onClick={() => handleOpen()}>
         <div className={styles.overflow}>
           <table>
             <thead>

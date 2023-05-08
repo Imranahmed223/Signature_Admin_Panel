@@ -1,0 +1,276 @@
+@import './../../styles/';
+@import "./../../scss/mixins";
+.container{
+    width: 100%;
+    height: auto;
+    padding: 4rem 4rem 0rem 4rem;
+    @include mobile{
+      padding: 4rem 2rem 0rem 2rem;
+    }
+    &_header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include mobile {
+        padding: 0rem 2rem 0rem 0rem;
+      }
+      h1{
+          color:$primary;
+          font-family: 'DM Sans';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 2rem;
+      }
+      select{
+          padding:0.5rem 1rem 0.5rem 1rem;
+          outline: none;
+          border: none;
+      }
+  }
+  &_intro{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 4rem 0rem 0rem;
+    @include tablet {
+      flex-direction: column;
+      padding: 4rem 4rem 0rem 0rem;
+    }
+    &_left_side{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include tablet {
+          display: none;
+        }
+        div{
+            padding-right: 8rem;
+            @include tablet {
+              padding-right: 6rem;
+            }
+            p{
+                color:$primary;
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1.3rem;
+                padding-bottom: 0.5rem;
+
+            }
+            span{
+                color: #8A8A8A;
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1.3rem;
+            }
+        }
+    }
+    &_right_side{
+    @include tablet {
+        padding:1rem 4rem 1rem 2rem;
+      }
+      @include mobile{
+        display: none;
+      }
+        input{
+            outline: none;
+            border: none;
+            background-color: transparent;
+        }
+        input::placeholder{
+            color: #8A8A8A;
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        background: #D9D9D9;
+        border-radius: 1rem;
+        padding: 0.2rem 2rem 0.2rem 2rem;
+    }
+}
+&_billing_info{
+  h1{
+    margin-top: 5rem;
+    @include mobile{
+      margin-top: 2rem;
+    }
+    color:$primary;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+  p{
+    margin-top: 1rem;
+    color:$primary;
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+}
+&_billing_card{
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+  &_intro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #858585;
+    padding:0.3rem 0.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    &_first_image{
+      width:4rem;
+      height: 4rem;
+    }
+    &_second_image{
+      margin-left: 0.5rem;
+    }
+  }
+  &_input{
+    margin-left: 0.8rem;
+    border-radius: 0.5rem;
+    input{
+      padding:1.4rem 0.5rem;
+    }
+  }
+  &_horizontal_line{
+    margin-top: 1rem;
+    @include mobile{
+      img{
+        width: 93%;
+      }
+    }
+  }
+  &_email_info{
+    margin-top: 1rem;
+    p{
+      color:$primary;
+      font-family: 'DM Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+    input{
+      margin-top: 1rem;
+      padding:1rem 2rem;
+      border-radius: 0.5rem;
+      border: 1px solid #858585;
+    }
+  }
+  &_table_heading{
+    margin-top: 1rem;
+    h1{
+      color:$primary;
+      font-family: 'DM Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+  }
+  &_table{
+    margin-top: $spacing-unit * 5;
+    cursor: pointer;
+    @include flex(row, flex-start, space-between, 20rem);
+    @include l-desktop {
+      @include flex(column, stretch, flex-start, 1.6rem);
+    }
+    & > .overflow {
+      flex: 1;
+      overflow-x: auto;
+
+      & > table {
+        width: 92%;
+        border-collapse: collapse;
+        border-spacing: 0rem;
+        & > thead {
+          & > tr {
+            & > th {
+              text-align: left;
+              font-size: $font-sm;
+              color: $primary;
+              font-weight: 600;
+              font-family: 'DM Sans';
+              font-style: normal;
+              white-space: nowrap;
+              padding: 0rem $spacing-unit * 1;
+              padding-bottom: $spacing-unit * 3;
+              border-bottom: 1px solid #AEAEAE;
+            }
+          }
+        }
+        & > tbody {
+          & > tr {
+            & > td {
+              margin-top: 1rem;
+              text-align: left;
+              font-size: $font-sm;
+              color: $primary;
+              font-weight: 300;
+              font-family: 'DM Sans';
+              font-style: normal;
+              white-space: nowrap;
+              padding: $spacing-unit * 3 $spacing-unit * 1;
+            }
+            & > td:nth-child(3){
+              color:#2D87FD
+            }
+          }
+        }
+      }
+    }
+    & > .info {
+      flex-basis: 25rem;
+      text-align: center;
+      font-size: $font-sm;
+      color: $primary-color;
+      font-weight: 600;
+      @include l-desktop {
+        flex-basis: auto;
+        text-align: right;
+        padding: 0rem $spacing-unit * 20;
+      }
+    }
+  }
+  &_btns{
+    margin-top: 6rem;
+    display: flex;
+    align-items: center;
+    &_btn1{
+      button{
+        padding:1.3rem 2.3rem;
+        border: 2px solid rgba(0, 203, 254, 0.42);
+        border-radius: 0.5rem;
+        color:#00CBFE;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.5rem;
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+    &_btn2{
+      button{
+        cursor: pointer;
+        margin-left: 2rem;
+        padding:1rem 4rem;
+        border: 2px solid rgba(0, 203, 254, 0.42);
+        border-radius: 0.5rem;
+        color:white;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.8rem;
+        background-color: #00CBFE;
+      }
+    }
+  }
+}
+}
