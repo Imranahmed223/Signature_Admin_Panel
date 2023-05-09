@@ -56,14 +56,14 @@ const SubscriptionUpdate = () => {
             alt="billingCard"
             className={styles.container_billing_card_intro_first_image}
           />
-          <img
+          {/* <img
             src={downArrow}
             alt="downArrow"
             className={styles.container_billing_card_intro_second_image}
-          />
+          /> */}
         </div>
         <div className={styles.container_billing_card_input}>
-          <input type="text" placeholder="**** **** **** 6832" />
+          <input type="text" placeholder="**** **** **** 6832" disabled />
         </div>
       </div>
       <div className={styles.container_billing_card_horizontal_line}>
@@ -71,7 +71,7 @@ const SubscriptionUpdate = () => {
       </div>
       <div className={styles.container_billing_card_email_info}>
         <p>Billing email</p>
-        <input type="text" placeholder="contact@xyz.com" />
+        <input type="text" placeholder="contact@xyz.com" disabled />
       </div>
       <div className={styles.container_billing_card_horizontal_line}>
         <img src={horizontalLine} alt="horizontalLine" />

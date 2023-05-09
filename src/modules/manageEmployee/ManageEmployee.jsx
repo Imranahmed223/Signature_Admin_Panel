@@ -63,22 +63,22 @@ const ManageEmployee = () => {
               <tbody>
                 <tr>
                   <td>Anton Hall</td>
-                  <td className={styles.table_active}>Active</td>
+                  <td className={styles.table_active}>Status</td>
                   <td>My Company Signature</td>
                 </tr>
                 <tr>
                   <td>Anton Hall</td>
-                  <td className={styles.table_active}>Active</td>
+                  <td className={styles.table_active}>Status</td>
                   <td>My Company Signature</td>
                 </tr>
                 <tr>
                   <td>Anton Hall</td>
-                  <td className={styles.table_active}>Active</td>
+                  <td className={styles.table_active}>Status</td>
                   <td>My Company Signature</td>
                 </tr>
                 <tr>
                   <td>Anton Hall</td>
-                  <td className={styles.table_active}>Active</td>
+                  <td className={styles.table_active}>Status</td>
                   <td>My Company Signature</td>
                 </tr>
               </tbody>

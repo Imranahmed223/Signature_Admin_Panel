@@ -51,10 +51,10 @@ const SupportRequest = () => {
             <label>Email</label>
             <input type="text" />
             <label>
-              Explain the issue<span style={{ color: "red" }}>*</span>
+              issues<span style={{ color: "red" }}>*</span>
             </label>
             <textarea rows="10" cols="30"></textarea>
-            <button onClick={() => handleClose()}>Submit</button>
+            {/* <button onClick={() => handleClose()}>Submit</button> */}
           </div>
         </Box>
       </Modal>
@@ -73,10 +73,10 @@ const SupportRequest = () => {
             <label>Email</label>
             <input type="text" />
             <label>
-              Explain the issue<span style={{ color: "red" }}>*</span>
+              issues<span style={{ color: "red" }}>*</span>
             </label>
             <textarea rows="10" cols="25"></textarea>
-            <button onClick={() => handleClose()}>Submit</button>
+            {/* <button onClick={() => handleClose()}>Submit</button> */}
           </div>
         </Box>
       </Modal>
