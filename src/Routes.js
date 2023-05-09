@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  HashRouter,
+  Route,
+  Routes,
+} from "react-router-dom";
 import {
   Login,
   Dashboard,
@@ -16,7 +21,7 @@ import { LayoutElement } from "./components/common";
 const Routess = () => {
   return (
     <>
-      <Router>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="" element={<LayoutElement />}>
@@ -33,7 +38,7 @@ const Routess = () => {
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>
-      </Router>
+      </HashRouter>
     </>
   );
 };
