@@ -47,9 +47,9 @@ const SupportRequest = () => {
         <Box sx={style}>
           <div className={styles.modal_box}>
             <label>Name</label>
-            <input type="text" placeholder="Anton Hall" />
+            <input type="text" placeholder="Anton Hall" disabled />
             <label>Email</label>
-            <input type="text" />
+            <input type="email" placeholder="anton@gmail.com" disabled />
             <label>
               issues<span style={{ color: "red" }}>*</span>
             </label>
@@ -69,13 +69,13 @@ const SupportRequest = () => {
         <Box sx={style1}>
           <div className={styles.modal_box}>
             <label>Name</label>
-            <input type="text" placeholder="Anton Hall" />
+            <input type="text" placeholder="Anton Hall" disabled />
             <label>Email</label>
-            <input type="text" />
+            <input type="email" placeholder="anton@gmail.com" disabled />
             <label>
               issues<span style={{ color: "red" }}>*</span>
             </label>
-            <textarea rows="10" cols="25"></textarea>
+            <textarea rows="10" cols="25" disabled></textarea>
             {/* <button onClick={() => handleClose()}>Submit</button> */}
           </div>
         </Box>
