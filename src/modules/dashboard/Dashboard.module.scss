@@ -29,7 +29,7 @@
   }
   &_analysis_card{
     margin-top: 4rem;
-    width:25rem;
+    width:20rem;
     @include mobile{
       width:20rem;
     }
@@ -234,5 +234,12 @@ tr:nth-child(2n) {
   background-color: #F1F4FA;;
 }
     }
+  }
+}
+
+.analysis_grid{
+  margin-right: 2rem!important;
+  @include desktop{
+    margin-right: 0rem!important;
   }
 }

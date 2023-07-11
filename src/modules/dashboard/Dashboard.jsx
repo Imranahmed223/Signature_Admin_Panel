@@ -88,10 +88,10 @@ const Dashboard = () => {
     },
     {
       image: heart,
-      number: 980,
-      type: "Professional",
-      perc: "-12%",
-      desc: "Professional Subscription plan",
+      number: 2761,
+      type: "Starter",
+      perc: "65%",
+      desc: "Starter subscription plan",
     },
     {
       image: business,
@@ -99,6 +99,13 @@ const Dashboard = () => {
       type: "Company",
       perc: "-8%",
       desc: "Company Users",
+    },
+    {
+      image: heart,
+      number: 2761,
+      type: "Starter",
+      perc: "65%",
+      desc: "Starter subscription plan",
     },
   ];
 
@@ -115,7 +122,15 @@ const Dashboard = () => {
       <Grid container spacing={2}>
         {listArray.map((data, ind) => {
           return (
-            <Grid item xs={6} sm={6} md={3} lg={3} key={ind}>
+            <Grid
+              item
+              xs={6}
+              sm={6}
+              md={2}
+              lg={2}
+              key={ind}
+              className={styles.analysis_grid}
+            >
               <div className={styles.container_analysis_card}>
                 <div className={styles.container_analysis_card_image}>
                   <img src={data.image} alt="image" />
