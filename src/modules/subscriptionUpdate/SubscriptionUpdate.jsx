@@ -101,7 +101,7 @@ const SubscriptionUpdate = () => {
       </div>
       <div className={styles.container_billing_card_btns}>
         <div className={styles.container_billing_card_btns_btn1}>
-          <button>Cancel</button>
+          {/* <button>Cancel</button> */}
         </div>
         <div className={styles.container_billing_card_btns_btn2}>
           <button>Update</button>

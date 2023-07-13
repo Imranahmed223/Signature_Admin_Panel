@@ -5,6 +5,8 @@ import {
   heart,
   business,
   tableSearch,
+  chart4,
+  chart5,
   tableUserImage,
   graphMenu,
   blueImage,
@@ -57,7 +59,7 @@ export const data = {
   datasets: [
     {
       data: [3, 6, 7, 9, 11],
-      backgroundColor: ["#8A8A8A", "#01CAFD", "#2B4465", "yellow", "green"],
+      backgroundColor: ["#8A8A8A", "#01CAFD", "#2B4465", "#0884B8", "#D5F3FA"],
     },
   ],
 };
@@ -185,8 +187,8 @@ const Dashboard = () => {
         <Grid item xs={12} sm={12} md={4} lg={4}>
           <div className={styles.container_graph_left}>
             <div className={styles.container_graph_left_intro}>
-              <p>Registered User</p>
-              <img src={graphMenu} alt="graphMenu" />
+              {/* <p>Registered User</p> */}
+              {/* <img src={graphMenu} alt="graphMenu" /> */}
             </div>
             <Pie data={data} options={options}></Pie>
             <div className={styles.container_graph_left_desc}>
@@ -203,11 +205,11 @@ const Dashboard = () => {
                 <p>Small Business</p>
               </div>
               <div className={styles.container_graph_left_desc_info}>
-                <img src={grayImage} alt="grayImage" />
+                <img src={chart4} alt="grayImage" />
                 <p>Comapny</p>
               </div>
               <div className={styles.container_graph_left_desc_info}>
-                <img src={blueImage} alt="grayImage" />
+                <img src={chart5} alt="grayImage" />
                 <p>Enterprise</p>
               </div>
             </div>

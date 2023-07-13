@@ -25,6 +25,8 @@ import share from "../assets/share.svg";
 import billingCard from "../assets/billingCard.svg";
 import downArrow from "../assets/downArrow.svg";
 import horizontalLine from "../assets/horizontalLine.svg";
+import chart4 from "../assets/chart4.svg";
+import chart5 from "../assets/chart5.svg";
 
 export {
   line,
@@ -54,4 +56,6 @@ export {
   billingCard,
   downArrow,
   horizontalLine,
+  chart4,
+  chart5,
 };

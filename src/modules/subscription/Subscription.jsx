@@ -8,7 +8,7 @@ const Subscription = () => {
   return (
     <>
       <div className={styles.header}>
-        <h1>Subscription</h1>
+        <h1>Subscribed users</h1>
         <select>
           <option>Mar 2023</option>
           <option>Mar 2024</option>
@@ -17,10 +17,10 @@ const Subscription = () => {
       </div>
       <div className={styles.intro}>
         <div className={styles.intro_left_side}></div>
-        <div className={styles.intro_right_side}>
+        {/* <div className={styles.intro_right_side}>
           <input type="text" placeholder="Search by Name" />
           <img src={search} alt="search" />
-        </div>
+        </div> */}
       </div>
       <div className={styles.table}>
         <div
@@ -33,7 +33,7 @@ const Subscription = () => {
                 <th>Clients Name</th>
                 <th>Email</th>
                 <th>Subscription Plan</th>
-                <th>Billing Cycle</th>
+                <th>Monthly</th>
                 <th></th>
               </tr>
             </thead>
