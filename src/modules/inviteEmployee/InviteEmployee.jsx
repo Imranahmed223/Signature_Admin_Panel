@@ -36,12 +36,12 @@ const InviteEmployee = () => {
           </div>
         </div>
         <div className={styles.container_intro_right_side}>
-          <button
+          {/* <button
             className={styles.container_intro_right_side_btn1}
             onClick={() => navigate("/manageEmployee")}
           >
             Add manually
-          </button>
+          </button> */}
           <button
             className={styles.container_intro_right_side_btn2}
             onClick={() => navigate("/inviteEmployee")}
