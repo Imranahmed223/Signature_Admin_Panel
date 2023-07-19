@@ -117,7 +117,7 @@
               }
         }
         &_options{
-          margin-left: 6rem!important;
+          margin-left: 7rem!important;
             width:100%;
             display: flex;
             justify-content: space-between;
@@ -129,9 +129,10 @@
             @include respond(laptop) {
               margin :3rem 0rem 0rem 4rem;
               }
-              @include mobile {
+              @include respond(tab-port) {
+                margin :3rem 0rem 0rem 4rem;
                 margin-left: 4rem!important;
-              }
+                }
               @include desktop {
                 margin :3rem 0rem 0rem 4rem;
                 margin-left: 4rem!important;
@@ -161,7 +162,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            margin: 3rem 0rem 0rem 7rem;
+            margin: 3rem 0rem 0rem 8rem;
             border-radius: 0.5rem;
             @include respond(big-desktop) {
               display: none;
