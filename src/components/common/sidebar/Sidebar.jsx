@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { logo } from "../../../assets";
 import styles from "./Sidebar.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -10,42 +10,44 @@ import {
   supportRequest,
   avatar,
   logout,
-  dashboard,
 } from "./../../../assets";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut, clearErrors, clearMessages } from "./../../../store/actions";
 
 const Sidebar = ({ handler }) => {
   const navigate = useNavigate();
-  const [coloredImage, setColoredImage] = useState(false);
+  const dispatch = useDispatch();
+  const {
+    logOutMessage,
+    logOutErrors: error,
+    sessionExpireError,
+    logOutLoading,
+  } = useSelector((state) => state.authReducer);
   const location = useLocation();
 
+  useEffect(() => {
+    if (error.length > 0) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+    if (sessionExpireError !== "") {
+      toast.error(sessionExpireError);
+      dispatch(clearErrors());
+      setTimeout(() => navigate("/"), 2000);
+    }
+    if (logOutMessage !== "") {
+      toast.success(logOutMessage);
+      dispatch(clearMessages());
+      setTimeout(() => navigate("/"), 2000);
+    }
+  }, [error, sessionExpireError, logOutMessage, dispatch, navigate]);
   const getColor = (current) => {
     if (location.pathname === current) {
       return "#01C8FB";
     }
   };
-  const getBackgroundColor = (current) => {
-    if (location.pathname === current) {
-      return "#01C8FB";
-    }
-  };
-  const getBackgroundColorOpacity = (current) => {
-    if (location.pathname === current) {
-      return 0.2;
-    }
-  };
-  const getPadding = (current) => {
-    if (location.pathname === current) {
-      return "2rem 0.5rem 1rem 0.5rem";
-    }
-  };
-  const getPaddingLeft = (current) => {
-    if (location.pathname === current) {
-      return "0.5rem";
-    }
-  };
-  const handleImage = () => {
-    setColoredImage(true);
-  };
+
   const data = [
     {
       path: "/dashboard",
@@ -88,22 +90,13 @@ const Sidebar = ({ handler }) => {
             return (
               <li key={ind}>
                 <Link to={item.path} onClick={() => handler()}>
-                  <span
-                    className={styles.icon}
-                    // style={{
-                    //   padding: getPadding(item.path),
-                    //   backgroundColor: getBackgroundColor(item.path),
-                    //   opacity: getBackgroundColorOpacity(item.path),
-                    // }}
-                  >
+                  <span className={styles.icon}>
                     <img src={item.icon} alt="icons" />
                   </span>
                   <span
                     className={styles.text}
                     style={{
                       color: getColor(item.path),
-                      // padding: getPaddingLeft(item.path),
-                      // marginTop: "-2rem",
                     }}
                   >
                     {item.title}
@@ -114,18 +107,24 @@ const Sidebar = ({ handler }) => {
           })}
         </ul>
       </div>
-
-      <div className={styles.container_bottom}>
+      <div
+        className={styles.container_bottom}
+        onClick={() => dispatch(logOut())}
+      >
         <div className={styles.left}>
           <img src={avatar} alt="avatar" />
         </div>
-        <div className={styles.info}>
+        <div className={styles.info} onClick={() => dispatch(logOut())}>
           <p className={styles.name}>Selina</p>
           <span className={styles.scale}>Signature design</span>
         </div>
-        <div className={styles.right}>
-          <img src={logout} alt="logout" />
-        </div>
+        {logOutLoading ? (
+          "Please wait..."
+        ) : (
+          <div className={styles.right} onClick={() => dispatch(logOut())}>
+            <img src={logout} alt="logout" />
+          </div>
+        )}
       </div>
     </div>
   );

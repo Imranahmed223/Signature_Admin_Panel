@@ -17,11 +17,19 @@ import {
   SubscriptionUpdate,
 } from "./modules";
 import { LayoutElement } from "./components/common";
+import { Toaster } from "react-hot-toast";
 
 const Routess = () => {
   return (
     <>
       <HashRouter>
+        <Toaster
+          toastOptions={{
+            style: {
+              fontSize: "18px",
+            },
+          }}
+        />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="" element={<LayoutElement />}>
