@@ -1,75 +1,63 @@
 import { authConstant } from "../constants";
 
 const initialState = {
-  errors: [],
   loading: false,
-  message: "",
-  logOutLoading: false,
-  logOutMessage: "",
-  logOutErrors: [],
-  sessionExpireError: "",
+  user: {
+    password: "",
+    role: "admin",
+    userName: "zain",
+    otp: null,
+    otpExpiry: null,
+    googleId: null,
+    googleAuthenticated: false,
+    _id: "",
+    email: "",
+    createdAt: "",
+    updatedAt: "",
+    __v: 0,
+  },
+  tokens: {
+    access: {
+      token: "",
+      expires: "",
+      uuid: "",
+    },
+    refresh: {
+      token: "",
+      expires: "",
+      uuid: "",
+    },
+  },
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case authConstant.ADMIN_LOGIN_REQUEST:
+    case authConstant.loginUser.request:
       return {
         ...state,
+        ...initialState,
         loading: true,
       };
-    case authConstant.ADMIN_LOGOUT_REQUEST:
-      return {
-        ...state,
-        logOutLoading: true,
-      };
-    case authConstant.ADMIN_LOGIN_SUCCESS:
+    case authConstant.loginUser.success:
       return {
         ...state,
         loading: false,
-        message: action.payload,
+        ...action.payload,
       };
-    case authConstant.ADMIN_LOGOUT_SUCCESS:
+    case authConstant.loginUser.error:
       return {
         ...state,
-        logOutLoading: false,
-        logOutMessage: action.payload,
-      };
-    case authConstant.ADMIN_LOGIN_FAILURE:
-    case authConstant.ADMIN_CHANGE_PASSWORD_FAILURE:
-      return {
-        ...state,
+        ...initialState,
         loading: false,
-        errors: action.payload.err,
       };
-    case authConstant.ADMIN_LOGOUT_FAILURE:
+
+    case authConstant.logoutUser:
       return {
-        ...state,
-        logOutLoading: false,
-        logOutErrors: action.payload.err,
+        ...initialState,
       };
-    case authConstant.SESSION_EXPIRE:
-      return {
-        ...state,
-        loading: false,
-        sessionExpireError: action.payload.err,
-      };
-    case authConstant.CLEAR_MESSAGES:
-      return {
-        ...state,
-        loading: false,
-        message: "",
-        logOutMessage: "",
-      };
-    case authConstant.CLEAR_ERRORS:
-      return {
-        ...state,
-        loading: false,
-        errors: [],
-        logOutErrors: [],
-        sessionExpireError: "",
-      };
+
     default:
-      return state;
+      return { ...state };
   }
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { logo } from "../../../assets";
 import styles from "./Sidebar.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -11,41 +11,24 @@ import {
   avatar,
   logout,
 } from "./../../../assets";
-import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { logOut, clearErrors, clearMessages } from "./../../../store/actions";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../../store/actions/auth.action";
+import { toast } from "react-hot-toast";
 
 const Sidebar = ({ handler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {
-    logOutMessage,
-    logOutErrors: error,
-    sessionExpireError,
-    logOutLoading,
-  } = useSelector((state) => state.authReducer);
   const location = useLocation();
-
-  useEffect(() => {
-    if (error.length > 0) {
-      toast.error(error);
-      dispatch(clearErrors());
-    }
-    if (sessionExpireError !== "") {
-      toast.error(sessionExpireError);
-      dispatch(clearErrors());
-      setTimeout(() => navigate("/"), 2000);
-    }
-    if (logOutMessage !== "") {
-      toast.success(logOutMessage);
-      dispatch(clearMessages());
-      setTimeout(() => navigate("/"), 2000);
-    }
-  }, [error, sessionExpireError, logOutMessage, dispatch, navigate]);
   const getColor = (current) => {
     if (location.pathname === current) {
       return "#01C8FB";
     }
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    toast.success("Logged out successfully!");
+    navigate("/", { replace: true });
   };
 
   const data = [
@@ -107,24 +90,17 @@ const Sidebar = ({ handler }) => {
           })}
         </ul>
       </div>
-      <div
-        className={styles.container_bottom}
-        onClick={() => dispatch(logOut())}
-      >
+      <div className={styles.container_bottom} onClick={handleLogout}>
         <div className={styles.left}>
           <img src={avatar} alt="avatar" />
         </div>
-        <div className={styles.info} onClick={() => dispatch(logOut())}>
+        <div className={styles.info}>
           <p className={styles.name}>Selina</p>
           <span className={styles.scale}>Signature design</span>
         </div>
-        {logOutLoading ? (
-          "Please wait..."
-        ) : (
-          <div className={styles.right} onClick={() => dispatch(logOut())}>
-            <img src={logout} alt="logout" />
-          </div>
-        )}
+        <div className={styles.right}>
+          <img src={logout} alt="logout" />
+        </div>
       </div>
     </div>
   );

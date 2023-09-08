@@ -1,24 +1,18 @@
 import React, { useEffect } from "react";
 import styles from "./Login.module.scss";
 import { line, google } from "./../../assets";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { Login, clearErrors, clearMessages } from "./../../store/actions";
 import { useFormik } from "formik";
 import { loginSchema } from "./../../schemas";
 import { Puff } from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../store/actions/auth.action";
+import { useNavigate } from "react-router";
+import { toast } from "react-hot-toast";
 
 const LoginComp = () => {
+  const { loading } = useSelector((s) => s.authReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {
-    message,
-    errors: error,
-    sessionExpireError,
-    loading,
-  } = useSelector((state) => state.authReducer);
-
   const { values, errors, handleBlur, handleChange, touched, handleSubmit } =
     useFormik({
       initialValues: {
@@ -28,28 +22,15 @@ const LoginComp = () => {
       validationSchema: loginSchema,
       onSubmit: (values, action) => {
         const { email, password } = values;
-        let result = { userName: email, password };
-        dispatch(Login(result));
-        action.resetForm();
+        let body = { email, password };
+        dispatch(
+          loginUser({ body }, () => {
+            toast.success("Logged in successfully!");
+            navigate("/dashboard", { replace: true });
+          })
+        );
       },
     });
-
-  useEffect(() => {
-    if (error.length > 0) {
-      toast.error(error);
-      dispatch(clearErrors());
-    }
-    if (sessionExpireError !== "") {
-      toast.error(sessionExpireError);
-      dispatch(clearErrors());
-      setTimeout(() => navigate("/"), 2000);
-    }
-    if (message !== "") {
-      toast.success(message);
-      dispatch(clearMessages());
-      setTimeout(() => navigate("/dashboard"), 2000);
-    }
-  }, [error, sessionExpireError, message, dispatch, navigate]);
 
   return (
     <>
@@ -92,7 +73,7 @@ const LoginComp = () => {
               ) : (
                 ""
               )}
-              <button type="submit">
+              <button type="submit" disabled={loading}>
                 {loading ? (
                   <div
                     style={{

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import styles from "./Dashboard.module.scss";
 import Grid from "@mui/material/Grid";
 import {
@@ -26,6 +26,8 @@ import {
   Filler,
 } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
+import { useDispatch, useSelector } from "react-redux";
+import { getDashboardData } from "../../store/actions/dashboard.actions";
 
 ChartJS.register(
   Tooltip,
@@ -48,23 +50,12 @@ export const options = {
   },
 };
 
-export const data = {
-  labels: [
-    "Starter",
-    "Professional",
-    "Small business",
-    "Comapny",
-    "Enterprise",
-  ],
-  datasets: [
-    {
-      data: [3, 6, 7, 9, 11],
-      backgroundColor: ["#8A8A8A", "#01CAFD", "#2B4465", "#0884B8", "#D5F3FA"],
-    },
-  ],
-};
+// export
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { usersPieChart, percentages } = useSelector((s) => s.dashboardReducer);
+
   const lineGraphLabels = [
     "Jan",
     "Feb",
@@ -79,43 +70,76 @@ const Dashboard = () => {
     "Nov",
     "Dec",
   ];
-  const listArray = [
-    {
-      image: heart,
-      number: 2761,
-      type: "Starter",
-      perc: "65%",
-      desc: "Starter subscription plan",
-    },
-    {
-      image: business,
-      number: 580,
-      type: "Small Business",
-      perc: "45%",
-      desc: "Small Business",
-    },
-    {
-      image: heart,
-      number: 2761,
-      type: "Starter",
-      perc: "65%",
-      desc: "Starter subscription plan",
-    },
-    {
-      image: business,
-      number: 90,
-      type: "Company",
-      perc: "-8%",
-      desc: "Company Users",
-    },
-    {
-      image: heart,
-      number: 2761,
-      type: "Starter",
-      perc: "65%",
-      desc: "Starter subscription plan",
-    },
-  ];
+  const listArray = useMemo(
+    () => [
+      {
+        number: usersPieChart.starter ?? 0,
+        type: "Starter",
+        perc: `${percentages.starter ?? "--"}%`,
+        desc: "Starter subscription plan",
+      },
+      {
+        number: usersPieChart.smallBusiness ?? 0,
+        type: "Small Business",
+        perc: `${percentages.smallBusiness ?? "--"}%`,
+        desc: "Small Business",
+      },
+      {
+        number: usersPieChart.professional ?? 0,
+        type: "Professional",
+        perc: `${percentages.professional ?? "--"}%`,
+        desc: "Professional subscription plan",
+      },
+      {
+        number: usersPieChart.company ?? 0,
+        type: "Company",
+        perc: `${percentages.company ?? "--"}%`,
+        desc: "Company Users",
+      },
+      {
+        number: usersPieChart.enterprise ?? 0,
+        type: "Enterprise",
+        perc: `${percentages.enterprise ?? "--"}%`,
+        desc: "Enterprise subscription plan",
+      },
+    ],
+    [usersPieChart, percentages]
+  );
+
+  const pieChartData = useMemo(
+    () => ({
+      labels: [
+        "Starter",
+        "Professional",
+        "Small business",
+        "Comapny",
+        "Enterprise",
+      ],
+      datasets: [
+        {
+          data: [
+            usersPieChart?.starter,
+            usersPieChart?.professional,
+            usersPieChart?.smallBusiness,
+            usersPieChart?.company,
+            usersPieChart?.enterprise,
+          ],
+          backgroundColor: [
+            "#8A8A8A",
+            "#01CAFD",
+            "#2B4465",
+            "#0884B8",
+            "#D5F3FA",
+          ],
+        },
+      ],
+    }),
+    [usersPieChart]
+  );
+
+  useEffect(() => {
+    dispatch(getDashboardData());
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
@@ -141,7 +165,11 @@ const Dashboard = () => {
             >
               <div className={styles.container_analysis_card}>
                 <div className={styles.container_analysis_card_image}>
-                  <img src={data.image} alt="image" />
+                  {ind % 2 === 0 ? (
+                    <img src={heart} alt="Heart" />
+                  ) : (
+                    <img src={business} alt="Business" />
+                  )}
                 </div>
                 <div className={styles.container_analysis_card_info}>
                   <p>{data.number}</p>
@@ -190,7 +218,7 @@ const Dashboard = () => {
               {/* <p>Registered User</p> */}
               {/* <img src={graphMenu} alt="graphMenu" /> */}
             </div>
-            <Pie data={data} options={options}></Pie>
+            <Pie data={pieChartData} options={options}></Pie>
             <div className={styles.container_graph_left_desc}>
               <div className={styles.container_graph_left_desc_info}>
                 <img src={grayImage} alt="grayImage" />
