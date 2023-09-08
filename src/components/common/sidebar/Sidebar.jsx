@@ -75,6 +75,9 @@ const Sidebar = ({ handler }) => {
       title: "Settings",
     },
   ];
+
+  const admin = JSON.parse(sessionStorage.getItem("admin"));
+
   return (
     <div className={styles.container}>
       <div
@@ -115,7 +118,7 @@ const Sidebar = ({ handler }) => {
           <img src={avatar} alt="avatar" />
         </div>
         <div className={styles.info} onClick={() => dispatch(logOut())}>
-          <p className={styles.name}>Selina</p>
+          <p className={styles.name}>{admin?.userName && admin.userName}</p>
           <span className={styles.scale}>Signature design</span>
         </div>
         {logOutLoading ? (

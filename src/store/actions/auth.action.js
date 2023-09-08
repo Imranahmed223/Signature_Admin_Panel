@@ -5,7 +5,7 @@ export const Login = (admin) => {
   return async (dispatch) => {
     dispatch({ type: authConstant.ADMIN_LOGIN_REQUEST });
     try {
-      const token = localStorage.getItem("adminToken");
+      const token = sessionStorage.getItem("adminToken");
       const result = await axios.post(
         `${process.env.REACT_APP_ROOT}/api/auth/admin/login`,
         admin,
@@ -16,9 +16,9 @@ export const Login = (admin) => {
         }
       );
       const { data } = result;
-      localStorage.setItem("adminToken", data.tokens.access.token);
-      localStorage.setItem("adminRefreshToken", data.tokens.refresh.token);
-      localStorage.setItem("admin", JSON.stringify(data.user));
+      sessionStorage.setItem("adminToken", data.tokens.access.token);
+      sessionStorage.setItem("adminRefreshToken", data.tokens.refresh.token);
+      sessionStorage.setItem("admin", JSON.stringify(data.user));
       dispatch({
         type: authConstant.ADMIN_LOGIN_SUCCESS,
         payload: "Login Successfully",
@@ -36,7 +36,7 @@ export const logOut = () => {
   return async (dispatch) => {
     dispatch({ type: authConstant.ADMIN_LOGOUT_REQUEST });
     try {
-      localStorage.clear();
+      sessionStorage.clear();
       dispatch({
         type: authConstant.ADMIN_LOGOUT_SUCCESS,
         payload: "Logout Successfully",

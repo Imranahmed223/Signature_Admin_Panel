@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Dashboard.module.scss";
 import Grid from "@mui/material/Grid";
 import {
@@ -26,6 +26,10 @@ import {
   Filler,
 } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { DashboardData, clearErrors } from "./../../store/actions";
+import { Puff } from "react-loader-spinner";
 
 ChartJS.register(
   Tooltip,
@@ -48,23 +52,26 @@ export const options = {
   },
 };
 
-export const data = {
-  labels: [
-    "Starter",
-    "Professional",
-    "Small business",
-    "Comapny",
-    "Enterprise",
-  ],
-  datasets: [
-    {
-      data: [3, 6, 7, 9, 11],
-      backgroundColor: ["#8A8A8A", "#01CAFD", "#2B4465", "#0884B8", "#D5F3FA"],
-    },
-  ],
-};
-
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const {
+    errors: error,
+    data: dashboardData,
+    loading,
+  } = useSelector((state) => state.dashboardReducer);
+
+  console.log("dashboardReducer is", dashboardData);
+
+  useEffect(() => {
+    if (error.length > 0) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [error]);
+
+  useEffect(() => {
+    dispatch(DashboardData());
+  }, []);
   const lineGraphLabels = [
     "Jan",
     "Feb",
@@ -82,41 +89,93 @@ const Dashboard = () => {
   const listArray = [
     {
       image: heart,
-      number: 2761,
+      number:
+        dashboardData?.usersPieChart?.starter &&
+        dashboardData.usersPieChart.starter,
       type: "Starter",
-      perc: "65%",
+      perc:
+        dashboardData?.percentages?.starter &&
+        dashboardData.percentages.starter + "%",
       desc: "Starter subscription plan",
     },
     {
       image: business,
-      number: 580,
+      number:
+        dashboardData?.usersPieChart?.smallBusiness &&
+        dashboardData.usersPieChart.smallBusiness,
       type: "Small Business",
-      perc: "45%",
+      perc:
+        dashboardData?.percentages?.smallBusiness &&
+        dashboardData.percentages.smallBusiness + "%",
       desc: "Small Business",
     },
     {
       image: heart,
-      number: 2761,
-      type: "Starter",
-      perc: "65%",
-      desc: "Starter subscription plan",
+      number:
+        dashboardData?.usersPieChart?.enterprise &&
+        dashboardData.usersPieChart.enterprise,
+      type: "Enterprise",
+      perc:
+        dashboardData?.percentages?.enterprise &&
+        dashboardData.percentages.enterprise + "%",
+      desc: "Enterprise subscription plan",
     },
     {
       image: business,
-      number: 90,
+      number:
+        dashboardData?.usersPieChart?.company &&
+        dashboardData.usersPieChart.company,
       type: "Company",
-      perc: "-8%",
+      perc:
+        dashboardData?.percentages?.company &&
+        dashboardData.percentages.company + "%",
       desc: "Company Users",
     },
     {
       image: heart,
-      number: 2761,
-      type: "Starter",
-      perc: "65%",
-      desc: "Starter subscription plan",
+      number:
+        dashboardData?.usersPieChart?.professional &&
+        dashboardData.usersPieChart.professional,
+      type: "Professional",
+      perc:
+        dashboardData?.percentages?.professional &&
+        dashboardData.percentages.professional + "%",
+      desc: "Professional subscription plan",
     },
   ];
 
+  const data = {
+    labels: [
+      "Starter",
+      "Professional",
+      "Small business",
+      "Comapny",
+      "Enterprise",
+    ],
+    datasets: [
+      {
+        data: [
+          dashboardData?.usersPieChart?.starter &&
+            dashboardData.usersPieChart.starter,
+          dashboardData?.usersPieChart?.professional &&
+            dashboardData.usersPieChart.professional,
+          dashboardData?.usersPieChart?.smallBusiness &&
+            dashboardData.usersPieChart.smallBusiness,
+          dashboardData?.usersPieChart?.company &&
+            dashboardData.usersPieChart.company,
+          dashboardData?.usersPieChart?.enterprise &&
+            dashboardData.usersPieChart.enterprise,
+        ],
+        backgroundColor: [
+          "#8A8A8A",
+          "#01CAFD",
+          "#2B4465",
+          "#0884B8",
+          "#D5F3FA",
+        ],
+      },
+    ],
+  };
   return (
     <div className={styles.container}>
       <div className={styles.container_header}>
@@ -236,47 +295,51 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                {/* <td data-label="no">#876364</td> */}
-                <td data-label="userName">
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Jane doe</span>
-                </td>
-                <td data-label="price">$60.000</td>
-                <td data-label="singantureNo">10</td>
-                {/* <td data-label="payment">$6.000.000</td> */}
-              </tr>
-              <tr>
-                {/* <td data-label="no">#876368</td> */}
-                <td data-label="userName">
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Sepatu Marrie</span>
-                </td>
-                <td data-label="price">$400.000</td>
-                <td data-label="singantureNo">20</td>
-                {/* <td data-label="payment">$8.000.000</td> */}
-              </tr>
-              <tr>
-                {/* <td data-label="no">#876364</td> */}
-                <td data-label="userName">
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Jane doe</span>
-                </td>
-                <td data-label="price">$60.000</td>
-                <td data-label="singantureNo">10</td>
-                {/* <td data-label="payment">$6.000.000</td> */}
-              </tr>
-              <tr>
-                {/* <td data-label="no">#876368</td> */}
-                <td data-label="userName">
-                  {" "}
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Sepatu Marrie</span>
-                </td>
-                <td data-label="price">$400.000</td>
-                <td data-label="singantureNo">20</td>
-                {/* <td data-label="payment">$8.000.000</td> */}
-              </tr>
+              {/* {dashboardData.length > 0 ? (
+                <Puff
+                  height="60"
+                  width="60"
+                  radius="6"
+                  color="black"
+                  ariaLabel="loading"
+                  wrapperStyle
+                  wrapperClass
+                />
+              ) : (
+                dashboardData.map
+              )} */}
+              {loading ? (
+                <Puff
+                  height="60"
+                  width="60"
+                  radius="6"
+                  color="black"
+                  ariaLabel="loading"
+                  wrapperStyle
+                  wrapperClass
+                />
+              ) : dashboardData?.allUsers ? (
+                dashboardData.allUsers.map((data, ind) => {
+                  return (
+                    <tr key={ind}>
+                      {/* <td data-label="no">#876364</td> */}
+                      <td data-label="userName">
+                        <img src={tableUserImage} alt="tableUserImage" />
+                        <span>{data?.name && data.name}</span>
+                      </td>
+                      <td data-label="price">
+                        {data?.subscription && data.subscription}
+                      </td>
+                      <td data-label="singantureNo">
+                        {data?.signatures && data.signatures}
+                      </td>
+                      {/* <td data-label="payment">$6.000.000</td> */}
+                    </tr>
+                  );
+                })
+              ) : (
+                ""
+              )}
             </tbody>
           </table>
         </div>

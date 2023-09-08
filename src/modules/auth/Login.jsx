@@ -28,7 +28,7 @@ const LoginComp = () => {
       validationSchema: loginSchema,
       onSubmit: (values, action) => {
         const { email, password } = values;
-        let result = { userName: email, password };
+        let result = { email, password };
         dispatch(Login(result));
         action.resetForm();
       },
