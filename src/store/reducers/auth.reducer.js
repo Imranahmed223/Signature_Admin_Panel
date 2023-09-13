@@ -35,7 +35,6 @@ const authReducer = (state = initialState, action) => {
     case authConstant.loginUser.request:
       return {
         ...state,
-        ...initialState,
         loading: true,
       };
     case authConstant.loginUser.success:
@@ -47,13 +46,28 @@ const authReducer = (state = initialState, action) => {
     case authConstant.loginUser.error:
       return {
         ...state,
-        ...initialState,
         loading: false,
       };
 
     case authConstant.logoutUser:
       return {
         ...initialState,
+      };
+
+    case authConstant.changePasswordByOld.request:
+      return {
+        ...state,
+        loading: true,
+      };
+    case authConstant.changePasswordByOld.success:
+      return {
+        ...state,
+        loading: false,
+      };
+    case authConstant.changePasswordByOld.error:
+      return {
+        ...state,
+        loading: false,
       };
 
     default:

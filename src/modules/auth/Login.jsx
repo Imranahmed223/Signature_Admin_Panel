@@ -24,9 +24,16 @@ const LoginComp = () => {
         const { email, password } = values;
         let body = { email, password };
         dispatch(
-          loginUser({ body }, () => {
+          loginUser({ body }, ({ user }) => {
             toast.success("Logged in successfully!");
-            navigate("/dashboard", { replace: true });
+            navigate(
+              `${
+                user?.role === "Support Manager"
+                  ? "/supportRequest"
+                  : "/dashboard"
+              }`,
+              { replace: true }
+            );
           })
         );
       },

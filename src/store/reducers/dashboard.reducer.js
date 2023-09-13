@@ -31,7 +31,6 @@ const dashboardReducer = (state = initialState, action) => {
     case DashboardConstants.getDashboardData.request:
       return {
         ...state,
-        ...initialState,
         loading: true,
       };
     case DashboardConstants.getDashboardData.success:
@@ -43,7 +42,6 @@ const dashboardReducer = (state = initialState, action) => {
     case DashboardConstants.getDashboardData.error:
       return {
         ...state,
-        ...initialState,
         loading: false,
       };
 

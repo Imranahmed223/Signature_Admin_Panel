@@ -1,23 +1,43 @@
-import React from "react";
+import React, { useLayoutEffect, useMemo } from "react";
 import styles from "./SubscriptionUpdate.module.scss";
 import { search, billingCard, downArrow, horizontalLine } from "./../../assets";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { formatDate } from "../../utils";
 
 const SubscriptionUpdate = () => {
+  const { results } = useSelector((s) => s.subscriptionReducer);
+  const _id = new URLSearchParams(useLocation().search).get("_id");
+  const navigate = useNavigate();
+
+  const singleSubscription = useMemo(() => {
+    if (!_id) return null;
+    return results?.find((item) => item._id === _id);
+  }, [results, _id]);
+
+  useLayoutEffect(() => {
+    if (!singleSubscription) {
+      navigate("/subscription");
+      return;
+    }
+  }, [navigate, singleSubscription]);
+
   return (
     <div className={styles.container}>
       <div className={styles.container_header}>
         <h1>Subscription</h1>
-        <select>
+        {/* <select>
           <option>Mar 2023</option>
           <option>Mar 2024</option>
           <option>Mar 2025</option>
-        </select>
+        </select> */}
       </div>
       <div className={styles.container_intro}>
         <div className={styles.container_intro_left_side}>
           <div>
             <p>Client name</p>
-            <span>Joseph Carter</span>
+            <span>{singleSubscription?.user?.name ?? "--"}</span>
           </div>
           <div>
             <p>Status</p>
@@ -25,7 +45,7 @@ const SubscriptionUpdate = () => {
           </div>
           <div>
             <p>Subscription Plan</p>
-            <span>Company</span>
+            <span>{singleSubscription?.name ?? "--"}</span>
           </div>
           <div>
             <p>Billing Cycle</p>
@@ -33,12 +53,12 @@ const SubscriptionUpdate = () => {
           </div>
           <div>
             <p>Price</p>
-            <span>$2.99</span>
+            <span>${singleSubscription?.price ?? "--"}</span>
           </div>
-          <div>
+          {/* <div>
             <p>Payment Due</p>
             <span>Valid</span>
-          </div>
+          </div> */}
         </div>
         <div className={styles.container_intro_right_side}>
           <input type="text" placeholder="Search by Name" />
@@ -63,7 +83,13 @@ const SubscriptionUpdate = () => {
           /> */}
         </div>
         <div className={styles.container_billing_card_input}>
-          <input type="text" placeholder="**** **** **** 6832" disabled />
+          <input
+            type="text"
+            placeholder={`**** **** **** ${
+              singleSubscription?.paymentMethod?.last4 ?? "****"
+            }`}
+            disabled
+          />
         </div>
       </div>
       <div className={styles.container_billing_card_horizontal_line}>
@@ -71,7 +97,11 @@ const SubscriptionUpdate = () => {
       </div>
       <div className={styles.container_billing_card_email_info}>
         <p>Billing email</p>
-        <input type="text" placeholder="contact@xyz.com" disabled />
+        <input
+          type="text"
+          placeholder={singleSubscription?.user?.email ?? "--"}
+          disabled
+        />
       </div>
       <div className={styles.container_billing_card_horizontal_line}>
         <img src={horizontalLine} alt="horizontalLine" />
@@ -90,23 +120,42 @@ const SubscriptionUpdate = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Apr 6,2023</td>
-                <td>$40.00</td>
-                <td>$40.00</td>
-              </tr>
+              {singleSubscription?.user?.transactionHistory
+                ? singleSubscription?.user?.transactionHistory?.map(
+                    (transaction, ind) => (
+                      <tr key={ind}>
+                        <td>
+                          {transaction?.date
+                            ? formatDate(transaction?.date ?? Date.now())
+                            : "--"}
+                        </td>
+                        <td>${transaction?.amount ?? "--"}</td>
+                        <td>{transaction?.invoice ?? "--"}</td>
+                      </tr>
+                    )
+                  )
+                : ""}
+
+              {(!singleSubscription?.user?.transactionHistory ||
+                singleSubscription?.user?.transactionHistory?.length === 0) && (
+                <tr>
+                  <td style={{ textAlign: "center" }} colSpan={3}>
+                    No history found!
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
       </div>
-      <div className={styles.container_billing_card_btns}>
+      {/* <div className={styles.container_billing_card_btns}>
         <div className={styles.container_billing_card_btns_btn1}>
-          {/* <button>Cancel</button> */}
+          <button>Cancel</button>
         </div>
         <div className={styles.container_billing_card_btns_btn2}>
           <button>Update</button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

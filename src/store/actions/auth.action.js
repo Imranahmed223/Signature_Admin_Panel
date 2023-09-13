@@ -79,3 +79,51 @@ export const loginUser = ({ body }, onSuccess, onError) => {
 export const logoutUser = () => ({
   type: authConstant.logoutUser,
 });
+
+export const changePasswordByOld = ({ body }, onSuccess, onError) => {
+  return asyncAction(
+    async (headers) => {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_ROOT}/api/auth/admin/changePassword`,
+        body,
+        headers
+      );
+      return data;
+    },
+    authConstant.changePasswordByOld,
+    onSuccess,
+    onError
+  );
+};
+
+export const generateOTP = ({ body }, onSuccess, onError) => {
+  return asyncAction(
+    async (headers) => {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_ROOT}/api/auth/admin/generateOtp`,
+        body,
+        headers
+      );
+      return data;
+    },
+    authConstant.changePasswordByOld,
+    onSuccess,
+    onError
+  );
+};
+
+export const changePasswordByOTP = ({ body }, onSuccess, onError) => {
+  return asyncAction(
+    async (headers) => {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_ROOT}/api/auth/admin/verifyOtp`,
+        body,
+        headers
+      );
+      return data;
+    },
+    authConstant.changePasswordByOld,
+    onSuccess,
+    onError
+  );
+};

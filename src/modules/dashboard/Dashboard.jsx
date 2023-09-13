@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useLayoutEffect, useMemo } from "react";
 import styles from "./Dashboard.module.scss";
 import Grid from "@mui/material/Grid";
 import {
@@ -28,6 +28,7 @@ import {
 import { Pie, Line } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getDashboardData } from "../../store/actions/dashboard.actions";
+import { useGlobalContext } from "../../Context";
 
 ChartJS.register(
   Tooltip,
@@ -54,7 +55,9 @@ export const options = {
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { usersPieChart, percentages } = useSelector((s) => s.dashboardReducer);
+  const { usersPieChart, percentages, allUsers, loading, monthlyData } =
+    useSelector((s) => s.dashboardReducer);
+  const { setIsGlobalLoading } = useGlobalContext();
 
   const lineGraphLabels = [
     "Jan",
@@ -137,19 +140,30 @@ const Dashboard = () => {
     [usersPieChart]
   );
 
+  const lineData = useMemo(() => {
+    if (!monthlyData) return Array(12).fill(0);
+    const keys = Object.keys(monthlyData);
+    if (keys.length !== 12) return Array(12).fill(0);
+    return keys.map((key) => monthlyData[key]);
+  }, [monthlyData]);
+
   useEffect(() => {
     dispatch(getDashboardData());
   }, [dispatch]);
+
+  useLayoutEffect(() => {
+    setIsGlobalLoading(loading);
+  }, [loading]);
 
   return (
     <div className={styles.container}>
       <div className={styles.container_header}>
         <h1>Dashboard</h1>
-        <select>
+        {/* <select>
           <option>Mar 2023</option>
           <option>Mar 2024</option>
           <option>Mar 2025</option>
-        </select>
+        </select> */}
       </div>
       <Grid container spacing={2}>
         {listArray.map((data, ind) => {
@@ -196,7 +210,7 @@ const Dashboard = () => {
                   labels: lineGraphLabels,
                   datasets: [
                     {
-                      data: [10, 20, 30, 42, 51, 82, 31, 59, 61, 73, 91, 58],
+                      data: lineData,
                       type: "line",
                       order: 2,
                       borderColor: "#01CAFD",
@@ -264,47 +278,21 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                {/* <td data-label="no">#876364</td> */}
-                <td data-label="userName">
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Jane doe</span>
-                </td>
-                <td data-label="price">$60.000</td>
-                <td data-label="singantureNo">10</td>
-                {/* <td data-label="payment">$6.000.000</td> */}
-              </tr>
-              <tr>
-                {/* <td data-label="no">#876368</td> */}
-                <td data-label="userName">
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Sepatu Marrie</span>
-                </td>
-                <td data-label="price">$400.000</td>
-                <td data-label="singantureNo">20</td>
-                {/* <td data-label="payment">$8.000.000</td> */}
-              </tr>
-              <tr>
-                {/* <td data-label="no">#876364</td> */}
-                <td data-label="userName">
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Jane doe</span>
-                </td>
-                <td data-label="price">$60.000</td>
-                <td data-label="singantureNo">10</td>
-                {/* <td data-label="payment">$6.000.000</td> */}
-              </tr>
-              <tr>
-                {/* <td data-label="no">#876368</td> */}
-                <td data-label="userName">
-                  {" "}
-                  <img src={tableUserImage} alt="tableUserImage" />
-                  <span>Sepatu Marrie</span>
-                </td>
-                <td data-label="price">$400.000</td>
-                <td data-label="singantureNo">20</td>
-                {/* <td data-label="payment">$8.000.000</td> */}
-              </tr>
+              {allUsers.map((user, ind) => (
+                <tr key={ind}>
+                  {/* <td data-label="no">#876364</td> */}
+                  <td data-label="userName">
+                    <img
+                      src={user?.photoPath ?? tableUserImage}
+                      alt="tableUserImage"
+                    />
+                    <span>{user?.name ?? "--"}</span>
+                  </td>
+                  <td data-label="price">{user?.subscription ?? "--"}</td>
+                  <td data-label="singantureNo">{user?.signatures ?? 0}</td>
+                  {/* <td data-label="payment">$6.000.000</td> */}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

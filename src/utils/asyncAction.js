@@ -1,5 +1,6 @@
 import { toast } from "react-hot-toast";
 import { logoutUser } from "../store/actions/auth.action";
+import { setGlobalLoadingAction } from "../store/actions/global.actions";
 
 export const asyncAction = (cb, actionNames, onSuccess, onError) => {
   return async (dispatch, getState) => {
@@ -16,9 +17,14 @@ export const asyncAction = (cb, actionNames, onSuccess, onError) => {
       onSuccess && onSuccess(payload);
     } catch (error) {
       dispatch({ type: actionNames.error });
-      if (error?.response?.status === 401) {
+      const accessToken = getState().authReducer?.tokens?.access?.token ?? "";
+      if (error?.response?.status === 401 && accessToken) {
         toast.error("Session has been expired. Please log in again!");
         dispatch(logoutUser());
+        dispatch(setGlobalLoadingAction(false));
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 500);
         return;
       }
       onError

@@ -1,55 +1,76 @@
 @import "./../../../styles/";
-.container{
-    position: relative;
-    &_main_logo{
-        padding: 2rem 0rem 0rem 2rem;
+.container {
+  position: relative;
+  &_main_logo {
+    padding: 2rem 0rem 0rem 2rem;
+    & > img {
+      width: 13rem;
     }
-    &_routing{
-        margin-top: 7rem;
-        ul{
-            list-style-type: none;
-            cursor: pointer;
-            li{
-                margin-bottom: 3rem;
-                .icon{
-                    padding-right: 1.3rem;
-                    padding-left: 1rem;
-                    width:5rem;
-                    height: 5rem;
-                }
-                .text{
-                    font-family: 'DM Sans';
-                    font-style: normal;
-                    font-weight: 300;
-                    font-size: 1.3rem;
-                    color: #858585;
-                    padding-top: -5rem;
-                }
+  }
+  &_routing {
+    margin-top: 7rem;
+    ul {
+      list-style-type: none;
+      cursor: pointer;
+      li {
+        margin-bottom: 3rem;
+
+        a {
+          display: grid;
+          align-items: center;
+          grid-template-columns: auto 1fr;
+          .icon {
+            padding-right: 1.3rem;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            & > img {
+              width: 2rem;
+              height: 2rem;
+              object-fit: cover;
             }
-        }
-    }
-    &_bottom{
-        cursor: pointer;
-        position: fixed;
-        margin: 0rem 0rem 2.5rem 1.5rem;
-        left:0;
-        bottom:0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        .name{
-            font-family: 'DM Sans';
-            color: $primary;
+          }
+          .text {
+            font-family: "DM Sans";
             font-style: normal;
-            font-weight: 400;
-            font-size: 1rem;
+            font-weight: 300;
+            font-size: 1.3rem;
+            color: #858585;
+            padding-top: -5rem;
+          }
         }
-        .scale{
-            color:#8A8A8A;
-            font-style: normal;
-            font-weight: 400;
-            font-size: 0.8rem;
-        }
+      }
     }
+  }
+  &_bottom {
+    cursor: pointer;
+    position: fixed;
+    width: 17rem;
+    padding: 0rem 1.5rem 2.5rem 1.5rem;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    & .info {
+      flex-grow: 1;
+    }
+    .name {
+      font-family: "DM Sans";
+      color: $primary;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1rem;
+      text-transform: capitalize;
+    }
+    .scale {
+      color: #8a8a8a;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.8rem;
+      text-transform: capitalize;
+    }
+  }
 }

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useLayoutEffect, useMemo, useState } from "react";
 import styles from "./SupportRequest.module.scss";
 import { search, deleteIcon } from "./../../assets";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import { Pagination, styled } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteSupportRequest,
+  getAllSupportRequests,
+  replyToSupportRequest,
+} from "../../store/actions";
+import { useGlobalContext } from "../../Context";
+import { useFormik } from "formik";
+import { replyToSupportRequestSchema } from "../../schemas";
 
 const style = {
   position: "absolute",
@@ -31,15 +41,83 @@ const style1 = {
   boxShadow: 24,
   p: 4,
 };
+
+const MyPagination = styled(({ ...props }) => <Pagination {...props} />)`
+  & > .MuiPagination-ul {
+    & > li > button {
+      font-size: 1.3rem;
+
+      & > svg {
+        height: 1.8rem;
+        width: 1.8rem;
+      }
+    }
+  }
+`;
+
 const SupportRequest = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [selectedId, setSelectedId] = useState("");
+  const handleClose = () => setSelectedId("");
+  const [searchText, setSearchText] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const { loading, results, totalPages } = useSelector(
+    (s) => s.supportRequestReducer
+  );
+
+  const dispatch = useDispatch();
+  const { setIsGlobalLoading } = useGlobalContext();
+  const selectedIssue = useMemo(() => {
+    return results?.find((issue) => issue._id === selectedId);
+  }, [results, selectedId]);
+  const formik = useFormik({
+    initialValues: {
+      reply: "",
+    },
+    validationSchema: replyToSupportRequestSchema,
+    onSubmit: (values, { resetForm }) => {
+      const { reply } = values;
+      dispatch(
+        replyToSupportRequest(
+          {
+            page: currentPage,
+            _id: selectedId,
+            body: {
+              email: selectedIssue?.email ?? "",
+              name: selectedIssue?.name ?? "",
+              issue: reply,
+            },
+            search: searchText,
+          },
+          () => {
+            resetForm();
+            setSelectedId("");
+          }
+        )
+      );
+    },
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const search = formData.get("search");
+    if (search) setSearchText(search);
+  };
+
+  useLayoutEffect(() => {
+    dispatch(getAllSupportRequests({ search: searchText, page: currentPage }));
+  }, [currentPage, dispatch, searchText]);
+
+  useLayoutEffect(() => {
+    setIsGlobalLoading(loading);
+  }, [loading]);
+
   return (
     <>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={Boolean(selectedId)}
+        onClose={() => {
+          setSelectedId("");
+        }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         className={styles.web_modal}
@@ -47,19 +125,59 @@ const SupportRequest = () => {
         <Box sx={style}>
           <div className={styles.modal_box}>
             <label>Name</label>
-            <input type="text" placeholder="Anton Hall" disabled />
+            <input
+              type="text"
+              style={{ width: "100%" }}
+              placeholder="Anton Hall"
+              disabled
+              value={selectedIssue?.name ?? "--"}
+            />
             <label>Email</label>
-            <input type="email" placeholder="anton@gmail.com" disabled />
+            <input
+              style={{ width: "100%" }}
+              type="email"
+              placeholder="anton@gmail.com"
+              disabled
+              value={selectedIssue?.email ?? "--"}
+            />
+            <label>Iissues</label>
+            <textarea
+              style={{
+                width: "100%",
+                resize: "none",
+                height: "7rem",
+                padding: ".65rem ",
+              }}
+              disabled
+              value={selectedIssue?.issue ?? "--"}
+            ></textarea>
             <label>
-              issues<span style={{ color: "red" }}>*</span>
+              Reply <span style={{ color: "red" }}>*</span>
             </label>
-            <textarea rows="10" cols="30"></textarea>
-            {/* <button onClick={() => handleClose()}>Submit</button> */}
+            <textarea
+              style={{
+                width: "100%",
+                resize: "none",
+                height: "7rem",
+                padding: ".65rem ",
+              }}
+              placeholder="Reply To issue"
+              value={formik.values.reply}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              name="reply"
+            ></textarea>
+            <label style={{ color: "#d63535" }}>
+              {formik.errors.reply && formik.touched.reply
+                ? formik.errors.reply
+                : ""}
+            </label>
+            <button onClick={formik.handleSubmit}>Submit</button>
           </div>
         </Box>
       </Modal>
 
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -76,21 +194,21 @@ const SupportRequest = () => {
               issues<span style={{ color: "red" }}>*</span>
             </label>
             <textarea rows="10" cols="25" disabled></textarea>
-            {/* <button onClick={() => handleClose()}>Submit</button> */}
+            <button onClick={() => handleClose()}>Submit</button>
           </div>
         </Box>
-      </Modal>
+      </Modal> */}
       <div className={styles.header}>
         <h1>Support Requests</h1>
-        <select>
+        {/* <select>
           <option>Mar 2023</option>
           <option>Mar 2024</option>
           <option>Mar 2025</option>
-        </select>
+        </select> */}
       </div>
       <div className={styles.intro}>
         <div className={styles.intro_left_side}>
-          <div>
+          {/* <div>
             <p>Employees Status</p>
             <span>Non Archived</span>
           </div>
@@ -105,39 +223,98 @@ const SupportRequest = () => {
           <div>
             <p>Assigned Signature</p>
             <span>All Signature</span>
-          </div>
+          </div> */}
         </div>
-        <div className={styles.intro_right_side}>
-          <input type="text" placeholder="Search by Name" />
+        <form className={styles.intro_right_side} onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search by Name"
+            name="search"
+            onChange={(e) => (e.target.value === "" ? setSearchText("") : "")}
+          />
           <img src={search} alt="search" />
-        </div>
+        </form>
       </div>
-      <div className={styles.table} onClick={() => handleOpen()}>
+      <div className={styles.table}>
         <div className={styles.overflow}>
           <table>
             <thead>
               <tr>
-                <th>Employees Status</th>
-                <th>Groups</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Issue</th>
                 <th>Status</th>
-                <th>Assigned Signature</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {Array(10)
-                .fill(0)
-                .map((_, i) => (
-                  <tr key={i}>
-                    <td>Anton Hall</td>
-                    <td>Active</td>
-                    <td>Sale</td>
-                    <td>My company Signature</td>
-                    <td>
-                      <img src={deleteIcon} alt="deleteIcon" />
-                    </td>
-                  </tr>
-                ))}
+              {results.map((supportRequest, i) => (
+                <tr key={i} onClick={() => setSelectedId(supportRequest?._id)}>
+                  <td>{supportRequest?.name ?? "--"}</td>
+                  <td>{supportRequest?.email ?? "--"}</td>
+                  <td>
+                    {supportRequest?.issue
+                      ? supportRequest?.issue?.length > 20
+                        ? supportRequest?.issue.slice(0, 20) + "..."
+                        : supportRequest?.issue
+                      : "--"}
+                  </td>
+                  <td>
+                    {supportRequest?.status
+                      ? supportRequest?.status === "resolved"
+                        ? "Resolved"
+                        : "Pending"
+                      : "--"}
+                  </td>
+                  <td>
+                    <img
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch(
+                          deleteSupportRequest({
+                            search: searchText,
+                            page: currentPage,
+                            _id: supportRequest?._id,
+                          })
+                        );
+                      }}
+                      src={deleteIcon}
+                      alt="deleteIcon"
+                    />
+                  </td>
+                </tr>
+              ))}
+
+              {results?.length === 0 && (
+                <tr>
+                  <td colSpan={5}>
+                    <p style={{ textAlign: "center" }}>No Record Found</p>
+                  </td>
+                </tr>
+              )}
+              {results?.length !== 0 && (
+                <tr>
+                  <td
+                    style={{ paddingTop: "2rem" }}
+                    colSpan={5}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div
+                      style={{
+                        display: "grid",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <MyPagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={(_, newPage) => setCurrentPage(newPage)}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
